@@ -6,14 +6,14 @@ author:
   - name: Charity W. Law
     affiliation: The Walter and Eliza Hall Institute of Medical Research, 1G Royal Parade, Parkville, Victoria 3052, Melbourne, Australia; Department of Medical Biology, The University of Melbourne, Parkville, Victoria 3010, Melbourne, Australia
   - name: Luyi Tian
-    affiliation: The Walter and Eliza Hall Institute of Medical Research, 1G Royal Parade, Parkville, Victoria 3052, Melbourne, Australia
+    affiliation: The Walter and Eliza Hall Institute of Medical Research, 1G Royal Parade, Parkville, Victoria 3052, Melbourne, Australia; Department of Medical Biology, The University of Melbourne, Parkville, Victoria 3010, Melbourne, Australia
   - name: Julie M. Sheridan
-    affiliation: The Walter and Eliza Hall Institute of Medical Research, 1G Royal Parade, Parkville, Victoria 3052, Melbourne, Australia
+    affiliation: The Walter and Eliza Hall Institute of Medical Research, 1G Royal Parade, Parkville, Victoria 3052, Melbourne, Australia; Department of Medical Biology, The University of Melbourne, Parkville, Victoria 3010, Melbourne, Australia
   - name: Milica Ng
     affiliation: CSL Limited, Bio21 Institute, 30 Flemington Road, Parkville, Victoria 3010, Australia 
   - name: Matthew E. Ritchie
     affiliation: The Walter and Eliza Hall Institute of Medical Research, 1G Royal Parade, Parkville, Victoria 3052, Melbourne, Australia; Department of Medical Biology, The University of Melbourne, Parkville, Victoria 3010, Melbourne, Australia; School of Mathematics and Statistics, The University of Melbourne, Parkville, Victoria 3010, Melbourne, Australia
-date: 14 July 2017
+date: 22 September 2017
 vignette: >
   %\VignetteIndexEntry{Easy and efficient ensemble gene set testing with EGSEA}
   %\VignetteEngine{knitr::rmarkdown}
@@ -51,10 +51,9 @@ The remaining eight methods are based on a *self-contained* null hypothesis that
 
 EGSEA provides access to a diverse range of gene signature collections through the **EGSEAdata** package that includes more than 25,000 gene sets for human and mouse organised according to their database sources (Table 1). For example, MSigDB [@Subramanian2005] includes a number of collections (Hallmark (h) and c1-c7) that explore different biological themes ranging from very broad (h, c2, c5) through to more specialised ones focusing on cancer (c4, c6) and immunology (c7). The other main sources are GeneSetDB [@Araki2012] and KEGG [@Kanehisa2000] which have similar collections focusing on different biological characteristics (Table 1). The choice of collection/s in any given analysis should of course be guided by the biological question of interest. The MSigDB c2 and c5 collections are the most widely used in our own analysis practice, spanning a wide range of biological processes and can often reveal new biological insights when applied to a given dataset.
 
-```{r table2, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
-tabl <- "  # Table of gene set collections available in the EGSEAdata package
+|--------------|-----------------------|--------------------------------------------------------|
 | Database     | Collection            | Description                                            |
-|:------------:|:---------------------:|:------------------------------------------------------:|
+|--------------|-----------------------|--------------------------------------------------------|
 | MSigDB       | h Hallmarks           | Gene sets representing well-defined biological states. |
 |              | c1 Positional         | Gene sets by chromosome and cytogenetic band.          |
 |              | c2 Curated            | Gene sets obtained from a variety of sources,          |
@@ -79,9 +78,7 @@ tabl <- "  # Table of gene set collections available in the EGSEAdata package
 |              |  Drug                 | Gene sets obtained from various online databases.      |
 |              |  Regulation           |                                                        |
 |              |  GO Term              |                                                        |
-"
-cat(tabl)
-```
+|--------------|-----------------------|--------------------------------------------------------|
 
 The purpose of this article is to demonstrate the gene set testing workflow available in **EGSEA** on both RNA-seq and microarray data.
 Each analysis involves four major steps that are summarized in Figure 1: (1) selecting appropriate gene set collections for analysis and building an index that maps between the members of each set and the expression matrix; (2) choosing the base GSE methods to combine and the ranking options; (3) running the EGSEA test and (4) reporting results in various ways to share with collaborators. The EGSEA functions involved in each of these steps are introduced with code examples to demonstrate to how they can be deployed as part of a **limma** differential expression analysis to help with the interpretation of results.
@@ -469,7 +466,7 @@ The second dataset analysed in this workflow comes from  Lim *et al.* (2010) [@L
 
 To analyse this dataset, we begin by unzipping the files downloaded from <http://bioinf.wehi.edu.au/EGSEA/arraydata.zip> into the current working directory. Illumina BeadArray data can be read in directly using the `readIDAT` and `readBGX` functions from the **illuminaio** package [@Smith:F1000Research:2013]. However, a more convenient way is via the `read.idat` function in **limma** which uses these **illuminaio** functions and outputs the data as an *EListRaw* object for further processing.
 
-```{r mareadidats, eval=FALSE}
+```{r mareadidats, eval=TRUE}
 library(limma)
 url = "http://bioinf.wehi.edu.au/EGSEA/arraydata.zip"
 utils::download.file(url, destfile="arraydata.zip", mode="wb")
@@ -485,13 +482,13 @@ colnames(data) = targets$Sample
 
 Next the `neqc` function in **limma** is used to carry out *normexp* background correction and quantile normalisation on the raw intensity values using negative control probes [@shi2010neqc]. This is followed by $\log_2$-transformation of the normalised intensity values and removal of the control probes. 
 
-```{r manormalize, eval=FALSE}
+```{r manormalize, eval=TRUE}
 data = neqc(data)
 ```
 
 We then filter out probes that are consistently non-expressed or lowly expressed throughout all samples as they are uninformative in downstream analysis. Our threshold for expression requires probes to have a detection $p$-value of less than 0.05 in at least 5 samples (the number of samples within each group). We next remove genes without a valid Entrez ID and in cases where there are multiple probes targeting different isoforms of the same gene, select the probe with highest average expression as the representative one to use in the EGSEA analysis. This leaves 7,123 probes for further analysis.
 
-```{r mafilter, eval=FALSE}
+```{r mafilter, eval=TRUE}
 table(targets$Celltype)
 keep.exprs = rowSums(data$other$Detection<0.05)>=5
 table(keep.exprs)
@@ -516,7 +513,7 @@ head(probe.annot)
 
 As before, we need to set up an appropriate linear model [@Smyth:SAGMB:2004] and contrasts matrix to look for differences between the Basal and LP, Basal and ML and LP and ML populations. A batch term is included in the linear model to account for differences in expression that are attributable to the day the experiment was run.
 
-```{r malinearmodel, eval=FALSE}
+```{r malinearmodel, eval=TRUE}
 head(data1$targets)
 experiment = as.character(data1$targets$Experiment)
 design = model.matrix(~0 + group + experiment)
@@ -534,7 +531,7 @@ contr.matrix
 
 We next extract the mouse c2, c5 and KEGG gene signature collections from the **EGSEAdata** package and build indexes based on Entrez IDs that link between the genes in each signature and the rows of our expression matrix.
 
-```{r maindex, eval=FALSE}
+```{r maindex, eval=TRUE}
 library(EGSEA)
 library(EGSEAdata)
 gs.annots = buildIdx(entrezIDs=probe.annot[, 2], 
@@ -547,7 +544,7 @@ names(gs.annots)
 
 The same 11 base methods used previously in the RNA-seq analysis were selected for the ensemble testing of the microarray data using the function `egsea.ma`. Gene sets were again prioritised by their median rank across the 11 methods.
 
-```{r maegsea, eval=FALSE}
+```{r maegsea, eval=TRUE}
 baseMethods = egsea.base()[-2]
 baseMethods
 
@@ -568,7 +565,7 @@ We complete our analysis by displaying the top ranked sets for the c2 collection
 ```{r mareport, warning=FALSE, eval=FALSE}
 generateReport(gsam, number = 20, report.dir="./mam-ma-egsea-report")
 ```
-```{r matopsets, eval=FALSE}
+```{r matopsets, eval=TRUE}
 topSets(gsam, gs.label="c2", contrast="comparison", names.only=TRUE, number=5)
 ```
 
@@ -583,7 +580,7 @@ EGSEA has been tailored to suit a **limma**-based differential expression analys
 Analysts who choose an individual GSE algorithm to prioritise their results rather than an ensemble solution can still benefit from EGSEA's comprehensive reporting capability.
 
 # Software and code used
-Code to perform this analysis is available in the **EGSEA123** workflow package from Bioconductor (<https://www.bioconductor.org/help/workflows/EGSEA123>).
+Code to perform this analysis can be found in the **EGSEA123** workflow package available from Bioconductor (<https://www.bioconductor.org/help/workflows/EGSEA123>).
 
 
 ```{r softwareinfo}
