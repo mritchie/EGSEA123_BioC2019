@@ -102,7 +102,7 @@ Our RNA-seq analysis follows on directly from the workflow of Law *et al.* (2016
 
 ### Reading, preprocessing and normalisation of RNA-seq data
 To get started with this analysis, download the R data file from <http://bioinf.wehi.edu.au/EGSEA/mam.rnaseq.rdata>. 
-\noindent The code below loads the preprocessed count matrix from Law *et al.* (2016), performs TMM normalisation [@RobinsonOshlack:GenomeBiol:2010] on the raw counts, and calculates voom weights for use in comparisons of gene expression between Basal and LP, Basal and ML, and LP and ML populations. 
+The code below loads the preprocessed count matrix from Law *et al.* (2016), performs TMM normalisation [@RobinsonOshlack:GenomeBiol:2010] on the raw counts, and calculates voom weights for use in comparisons of gene expression between Basal and LP, Basal and ML, and LP and ML populations. 
 
 ```{r setup, message=FALSE, echo = FALSE}
 library(limma)
@@ -188,7 +188,7 @@ Objects of class *GSCollectionIndex* store for each gene set the Entrez gene IDs
 ```{r indexclass}
 slotNames(gs.annots$c2)
 ```
-Other EGSEA functions such as `buildCustomIdx`, `buildGMTIdx`, `buildKEGGIdx`, `buildMSigDBIdx` and `buildGeneSetDBIdx` can be also used to build gene set collection indexes. The functions `buildCustomIdx` and `buildGMTIdx` were written to allow users to run EGSEA on gene set collections that may have been curated within a lab or downloaded from public databases and allow use of gene identifiers other than Entrez IDs. Example databases include, ENCODE Gene Set Hub (available from <https://sourceforge.net/projects/encodegenesethub/>), which is a growing resource of gene sets derived from high quality ENCODE profiling experiments encompassing hundreds of DNase hypersensitivity, histone modification and transcription factor binding experiments [@EncodeHub2017]. Other resources include PathwayCommons (<http://www.pathwaycommons.org/>) \cite{pathwayCommons2011} or the **KEGGREST** [@KEGGREST2017] package that provides access to up-to-date KEGG pathways across many species. 
+Other EGSEA functions such as `buildCustomIdx`, `buildGMTIdx`, `buildKEGGIdx`, `buildMSigDBIdx` and `buildGeneSetDBIdx` can be also used to build gene set collection indexes. The functions `buildCustomIdx` and `buildGMTIdx` were written to allow users to run EGSEA on gene set collections that may have been curated within a lab or downloaded from public databases and allow use of gene identifiers other than Entrez IDs. Example databases include, ENCODE Gene Set Hub (available from <https://sourceforge.net/projects/encodegenesethub/>), which is a growing resource of gene sets derived from high quality ENCODE profiling experiments encompassing hundreds of DNase hypersensitivity, histone modification and transcription factor binding experiments [@EncodeHub2017]. Other resources include PathwayCommons (<http://www.pathwaycommons.org/>) [@pathwayCommons2011] or the **KEGGREST** [@KEGGREST2017] package that provides access to up-to-date KEGG pathways across many species. 
 
 #### 2. Configuring EGSEA
 
@@ -242,7 +242,7 @@ Next, the EGSEA analysis is performed using the `egsea` function that takes a *v
 gsa = egsea(voom.results=v, contrasts=contr.matrix,  
          gs.annots=gs.annots, symbolsMap=symbolsMap,
          baseGSEAs=baseMethods, sort.by="med.rank",
-         num.threads = 8, report = FALSE)
+         num.threads = 16, report = FALSE)
 ```
 
 In situations where the design matrix includes an intercept, a vector of integers that specify the columns of the design matrix to test using EGSEA can be passed to the `contrasts` argument. If this parameter is `NULL`, all pairwise comparisons based on `v$targets$group` are created, assuming that `group` is the primary factor in the design matrix. Likewise, all the coefficients of the primary factor are used if the design matrix has an intercept.
@@ -531,7 +531,7 @@ contr.matrix
 
 We next extract the mouse c2, c5 and KEGG gene signature collections from the **EGSEAdata** package and build indexes based on Entrez IDs that link between the genes in each signature and the rows of our expression matrix.
 
-```{r maindex, eval=TRUE}
+```{r maindex, eval=FALSE}
 library(EGSEA)
 library(EGSEAdata)
 gs.annots = buildIdx(entrezIDs=probe.annot[, 2], 
@@ -544,7 +544,7 @@ names(gs.annots)
 
 The same 11 base methods used previously in the RNA-seq analysis were selected for the ensemble testing of the microarray data using the function `egsea.ma`. Gene sets were again prioritised by their median rank across the 11 methods.
 
-```{r maegsea, eval=TRUE}
+```{r maegsea, eval=FALSE}
 baseMethods = egsea.base()[-2]
 baseMethods
 
@@ -565,7 +565,7 @@ We complete our analysis by displaying the top ranked sets for the c2 collection
 ```{r mareport, warning=FALSE, eval=FALSE}
 generateReport(gsam, number = 20, report.dir="./mam-ma-egsea-report")
 ```
-```{r matopsets, eval=TRUE}
+```{r matopsets, eval=FALSE}
 topSets(gsam, gs.label="c2", contrast="comparison", names.only=TRUE, number=5)
 ```
 
