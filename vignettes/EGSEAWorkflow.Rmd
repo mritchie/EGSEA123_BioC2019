@@ -12,7 +12,7 @@ author:
   - name: Milica Ng
     affiliation: CSL Limited, Bio21 Institute, 30 Flemington Road, Parkville, Victoria 3010, Australia 
   - name: Matthew E. Ritchie
-    affiliation: The Walter and Eliza Hall Institute of Medical Research, 1G Royal Parade, Parkville, Victoria 3052, Melbourne, Australia; Department of Medical Biology, The University of Melbourne, Parkville, Victoria 3010, Melbourne, Australia; School of Mathematics and Statistics, The University of Melbourne, Parkville, Victoria 3010, Melbourne, Australia
+    affiliation: The Walter and Eliza Hall Institute of Medical Research, 1G Royal Parade, Parkville, Victoria 3052, Melbourne, Australia; Department of Medical Biology and School of Mathematics and Statistics, The University of Melbourne, Parkville, Victoria 3010, Melbourne, Australia
 date: 22 September 2017
 vignette: >
   %\VignetteIndexEntry{Easy and efficient ensemble gene set testing with EGSEA}
