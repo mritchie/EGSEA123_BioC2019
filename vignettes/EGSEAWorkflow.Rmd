@@ -315,7 +315,7 @@ plotHeatmap(gsa, gene.set="LIM_MAMMARY_STEM_CELL_DN", gs.label="c2",
          contrast = "comparison", file.name = "hm_cmp_LIM_MAMMARY_STEM_CELL_DN", format="png")
 ```
 
-![Heatmap of log-fold-changes for genes in the *LIM MAMMARY STEM CELL UP* gene set across three experimental comparisons.](hm_cmp_LIM_MAMMARY_STEM_CELL_UP.png)![Heatmap of log-fold-changes for genes in the *LIM MAMMARY STEM CELL DN* gene set across the three experimental comparisons (Basal vs LP, Basal vs ML and LP vs ML).](hm_cmp_LIM_MAMMARY_STEM_CELL_UP.png)
+![Heatmap of log-fold-changes for genes in the *LIM MAMMARY STEM CELL UP* gene set across three experimental comparisons.](hm_cmp_LIM_MAMMARY_STEM_CELL_UP.png)![Heatmap of log-fold-changes for genes in the *LIM MAMMARY STEM CELL DN* gene set across the three experimental comparisons (Basal vs LP, Basal vs ML and LP vs ML).](hm_cmp_LIM_MAMMARY_STEM_CELL_DN.png)
 
 When using *plotHeatmap*, the `gene.set` value must match the name returned from the *topSets* method. The rows of the heatmap represent the genes in the set and the columns represent the experimental contrasts. The heatmap colour-scale ranges from down-regulated (blue) to up-regulated (red) while the row labels (Gene symbols) are coloured in green when the genes are statistically significant in the DE analysis (i.e. FDR $\leq$ 0.05 in at least one contrast). Heatmaps can be generated for individual comparisons by changing the `contrast` argument of *plotHeatmap*. The *plotHeatmap* method also generates a CSV file that includes the DE analysis results from `limma::topTable` for all expressed genes in the selected gene set and for each contrast (in the case of `contrast = "comparison"`). This file can be used to create customised plots using other R/Bioconductor packages. 
 
@@ -362,7 +362,7 @@ plotSummary(gsa, gs.label = 3, contrast = 3,
          file.name = "summary_kegg_LPvsML", format="png")
 ```
 
-![Summary plots (directional (left) and ](summary_kegg_LPvsML_dir.png)![ranking (right)) of the significance of all gene sets in the KEGG collection for the LP vs ML contrast.](summary_kegg_LPvsML_rank.png)
+![Summary plots (directional (left) and ](summary_kegg_LPvsML-dir.png)![ranking (right)) of the significance of all gene sets in the KEGG collection for the LP vs ML contrast.](summary_kegg_LPvsML-rank.png)
 
 The summary plot visualizes the gene sets as bubbles based on the $-\log_{10}{(p\mbox{-}value)}$ (X-axis) and the average absolute log fold-change of the set genes (Y-axis). The sets that appear towards the top-right corner of this plot are most likely to be biologically relevant. EGSEA generates two types of summary plots: the directional summary plot (Figure 6a), which colours the bubbles based on the regulation direction of the gene set (the direction of the majority of genes), and the ranking summary plot (Figure 6b), which colours the bubbles based on the gene set ranking in a given collection (according to the `sort.by` argument). The bubble size is based on the EGSEA significance score in the former plot and the gene set size in the latter. For example, the summary plots of the KEGG pathways for the LP vs ML contrast show few significant pathways (Figure 6). The blue colour labels on the ranking plot represents gene sets that do not appear in the top $10$ gene sets that are selected based on the `sort.by` argument while their EGSEA significance scores are among the top $5$ in the entire collection. This is used to identify gene sets with high significance scores that were not captured by the `sort.by` score. 
 The gene set IDs and more information about each set can be found in the EGSEA HTML report generated later.
@@ -383,7 +383,7 @@ plotSummary(gsa, gs.label = 1, contrast = 3,
          x.axis = "med.rank", x.cutoff=300, format="png")
 ```
 
-![Summary plots (directional (left) and ](summary_c2_LPvsML_dir.png)![filtered directional (right)) of the significance of selected gene sets in the c2 collection for the LP vs ML contrast. The x-axis in each plot is the `med.rank`. A cut-off of 300 was used to select significant gene sets in the filtered plot.](summary_sig_c2_LPvsML_dir.png)
+![Summary plots (directional (left) and ](summary_c2_LPvsML-dir.png)![filtered directional (right)) of the significance of selected gene sets in the c2 collection for the LP vs ML contrast. The x-axis in each plot is the `med.rank`. A cut-off of 300 was used to select significant gene sets in the filtered plot.](summary_sig_c2_LPvsML-dir.png)
 
 Comparative summary plots can be also generated to compare the significance of gene sets between two contrasts, for example, the comparison between Basal vs LP and Basal vs ML (Figure 8a) shows that most of the KEGG pathways are regulated in the same direction with relatively few pathways regulated in opposite directions (purple coloured bubbles in Figure 8, left panel). Such figures can be generated using the *plotSummary* method as follows:
 
@@ -392,7 +392,7 @@ plotSummary(gsa, gs.label = "kegg", contrast = c(1,2),
          file.name = "summary_kegg_1vs2", format="png")
 ```
 
-![Summary plots (directional (left) and ](summary_kegg_1vs2_dir.png)![ranking (right)) of the significance of all gene sets in the KEGG collection for the comparison of the contrasts: Basal vs LP and Basal vs ML.](summary_kegg_1vs2_rank.png)
+![Summary plots (directional (left) and ](summary_kegg_1vs2-dir.png)![ranking (right)) of the significance of all gene sets in the KEGG collection for the comparison of the contrasts: Basal vs LP and Basal vs ML.](summary_kegg_1vs2-rank.png)
 
 The *plotSummary* method has two useful parameters: (i) `use.names` that can be used to display gene set names instead of gene set IDs and (ii) `interactive` that can be used to generate an interactive version of this plot.
 
