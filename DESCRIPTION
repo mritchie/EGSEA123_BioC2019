@@ -1,6 +1,6 @@
 Package: EGSEA123
 Title: Easy and efficient ensemble gene set testing with EGSEA
-Version: 1.1.3
+Version: 1.1.4
 Date: 2017-10-07
 Authors@R: c(person(role=c("aut", "cre"), "Monther", "Alhamdoosh",
         email = "monther.alhamdoosh@csl.com.au"), person(role="aut",
@@ -18,7 +18,7 @@ License: Artistic-2.0
 Encoding: UTF-8
 VignetteBuilder: knitr
 biocViews: Workflow, GeneExpressionWorkflow
-Suggests: knitr, rmarkdown
+Suggests: knitr, rmarkdown, BiocStyle
 NeedsCompilation: no
 Workflow: True
 Author: Monther Alhamdoosh, Charity Law, Luyi Tian, Julie Sheridan,

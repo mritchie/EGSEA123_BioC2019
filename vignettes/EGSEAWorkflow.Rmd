@@ -25,6 +25,13 @@ output:
     self_contained: no
 ---
 
+**R version**: `r R.version.string`
+
+**Bioconductor version**: `r BiocInstaller::biocVersion()`
+
+**Package**: `r packageVersion("EGSEA123")`
+
+
 # Abstract
 
 Gene set enrichment analysis is a popular approach for prioritising the biological processes perturbed in genomic datasets. 
