@@ -1,6 +1,6 @@
 Package: EGSEA123
 Title: Easy and efficient ensemble gene set testing with EGSEA
-Version: 1.7.0
+Version: 1.7.1
 Date: 2017-10-07
 Authors@R: c(person(role=c("aut", "cre"), "Monther", "Alhamdoosh",
         email = "monther.alhamdoosh@csl.com.au"), person(role="aut",
@@ -17,7 +17,7 @@ Depends: R (>= 3.4.0), EGSEA (>= 1.5.2), limma, edgeR, illuminaio
 License: Artistic-2.0
 Encoding: UTF-8
 VignetteBuilder: knitr
-biocViews: Workflow, GeneExpressionWorkflow
+biocViews: ImmunoOncologyWorkflow, Workflow, GeneExpressionWorkflow
 Suggests: knitr, rmarkdown, BiocStyle
 NeedsCompilation: no
 Workflow: True
