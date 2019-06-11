@@ -1,35 +1,24 @@
 ---
-title: "Easy and efficient ensemble gene set testing with EGSEA"
-author: 
-  - name: Monther Alhamdoosh
-    affiliation: CSL Limited, Bio21 Institute, 30 Flemington Road, Parkville, Victoria 3010, Australia 
-  - name: Charity W. Law
-    affiliation: The Walter and Eliza Hall Institute of Medical Research, 1G Royal Parade, Parkville, Victoria 3052, Melbourne, Australia; Department of Medical Biology, The University of Melbourne, Parkville, Victoria 3010, Melbourne, Australia
-  - name: Luyi Tian
-    affiliation: The Walter and Eliza Hall Institute of Medical Research, 1G Royal Parade, Parkville, Victoria 3052, Melbourne, Australia; Department of Medical Biology, The University of Melbourne, Parkville, Victoria 3010, Melbourne, Australia
-  - name: Julie M. Sheridan
-    affiliation: The Walter and Eliza Hall Institute of Medical Research, 1G Royal Parade, Parkville, Victoria 3052, Melbourne, Australia; Department of Medical Biology, The University of Melbourne, Parkville, Victoria 3010, Melbourne, Australia
-  - name: Milica Ng
-    affiliation: CSL Limited, Bio21 Institute, 30 Flemington Road, Parkville, Victoria 3010, Australia 
-  - name: Matthew E. Ritchie
-    affiliation: The Walter and Eliza Hall Institute of Medical Research, 1G Royal Parade, Parkville, Victoria 3052, Melbourne, Australia; Department of Medical Biology and School of Mathematics and Statistics, The University of Melbourne, Parkville, Victoria 3010, Melbourne, Australia
-date: 22 September 2017
+output:
+  rmarkdown::html_document:
+    highlight: pygments
+    toc: true
+    toc_depth: 3
+    fig_width: 5
+    fig_caption: true
 vignette: >
   %\VignetteIndexEntry{Easy and efficient ensemble gene set testing with EGSEA}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8} 
-bibliography: workflow.bib
+bibliography: "`r system.file(package='EGSEA123', 'vignettes', 'workflow.bib')`"
 output: 
   BiocStyle::html_document:
     fig_caption: true
     self_contained: no
 ---
+# Easy and efficient ensemble gene set testing with EGSEA
 
-**R version**: `r R.version.string`
 
-**Bioconductor version**: `r BiocManager::version()`
-
-**Package**: `r packageVersion("EGSEA123")`
 
 
 # Abstract
