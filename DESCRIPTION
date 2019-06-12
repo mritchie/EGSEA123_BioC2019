@@ -13,4 +13,5 @@ VignetteBuilder: knitr, rmarkdown
 Suggests: knitr, rmarkdown
 Author: Monther Alhamdoosh, Charity Law, Luyi Tian, Julie Sheridan,
         Milica Ng and Matthew Ritchie
+Maintainer: Matthew Ritchie <mritchie@wehi.edu.au>
 URL: https://www.bioconductor.org/help/workflows/
